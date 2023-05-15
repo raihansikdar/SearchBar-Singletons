@@ -10,6 +10,12 @@ class HomePage extends GetView<ApiViewModel> {
   final _debouncer = Debouncer(milliseconds: 1000);
   final ApiViewModel apiViewModel = Get.put(ApiViewModel());
 
+  // @override
+  // void dispose() {
+  //   _debouncer.cancelTimer();
+  //   super.dispose();
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,13 +27,16 @@ class HomePage extends GetView<ApiViewModel> {
             });
           },
           decoration: const InputDecoration(
-            icon: Icon(Icons.search,color: Colors.amber,),
+            icon: Icon(
+              Icons.search,
+              color: Colors.amber,
+            ),
             hintText: "Search",
             border: InputBorder.none,
           ),
         ),
       ),
-      body: apiViewModel.obx( 
+      body: apiViewModel.obx(
         (state) => ListView.builder(
           itemCount: apiViewModel.filteredList.length,
           itemBuilder: (context, index) {
